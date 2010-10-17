@@ -46,17 +46,17 @@ module Rack
       cmd.join(' ')
     end
 
-		def wait_for_tunnel
-			Timeout::timeout(30) do
-				begin
-					return TCPSocket.new(@uri.host, @uri.port)
-				rescue Errno::ECONNREFUSED
-					retry
-				rescue => e
-					raise Error, e.message
-				end
-			end
-		end
+    def wait_for_tunnel
+      Timeout::timeout(30) do
+        begin
+          return TCPSocket.new(@uri.host, @uri.port)
+        rescue Errno::ECONNREFUSED
+          retry
+        rescue => e
+          raise Error, e.message
+        end
+      end
+    end
 
     class Error < StandardError ; end
   end
