@@ -3,6 +3,12 @@ rack/tunnel
 
 Automatic port forwading via SSH tunneling.
 
+setup
+-----
+
+Be sure to setup your ssh-agent for the SSH connection. If you plan on forwarding a well-known
+port (e.g. 80), be sure to add `GatewayPorts=yes` to your sshd_config file (and restart sshd!).
+
 example
 -------
 
