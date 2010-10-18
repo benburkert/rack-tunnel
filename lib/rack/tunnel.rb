@@ -21,7 +21,7 @@ module Rack
     end
 
     def establish_tunnel(local_port)
-      pid, _ = Open4.popen4(command(local_port))
+      pid, _ = Open4.popen4(*command(local_port))
 
       at_exit do
         Process.kill(9, pid)
@@ -34,16 +34,16 @@ module Rack
 
     def command(local_port)
       cmd = %w"ssh"
-      cmd << "-R 0.0.0.0:#{@uri.port}:localhost:#{local_port}"
+      cmd << "-R" << "0.0.0.0:#{@uri.port}:localhost:#{local_port}"
       cmd << @uri.host
-      cmd << "-l #{@uri.user}"
-      cmd << "-o TCPKeepAlive=yes"
-      cmd << "-o ServerAliveInterval=30"
-      cmd << "-o ServerAliveCountMax=10"
-      cmd << "-o GatewayPorts=yes"
+      cmd << "-l" << @uri.user
+      cmd << "-o" << "TCPKeepAlive=yes"
+      cmd << "-o" << "ServerAliveInterval=30"
+      cmd << "-o" << "ServerAliveCountMax=10"
+      cmd << "-o" << "GatewayPorts=yes"
       cmd << "-N"
 
-      cmd.join(' ')
+      cmd
     end
 
     def wait_for_tunnel
