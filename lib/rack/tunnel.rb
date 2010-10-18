@@ -4,7 +4,7 @@ require 'open4'
 
 module Rack
   class Tunnel
-    VERSION = '0.1.0'
+    VERSION = '0.1.1'
     HEADER  = 'X-Tunnel-Uri'
 
     def initialize(app, uri)
